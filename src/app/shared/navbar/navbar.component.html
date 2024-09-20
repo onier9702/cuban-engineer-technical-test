@@ -1,0 +1,12 @@
+<section class="portrait"></section>
+
+<section class="navbar">
+  <div class="navbar_menu">
+    @for (item of menu; track item.url) {
+    <li class="navbar_link" [routerLink]="item.url">
+      {{ item.title }}
+    </li>
+    }
+  </div>
+  <span class="navbar_title">Welcome to Cuban Engineer</span>
+</section>

@@ -1,0 +1,66 @@
+<div class="login container">
+  <div class="text_center">
+    <h2 class="text_center mb-5 mt-5">Login</h2>
+  </div>
+
+  <div class="div_img_form">
+    <form
+      class="form"
+      autocomplete="off"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
+      <div class="row">
+        <div class="col-12">
+          <label for="email">
+            Email
+            <span class="asterisk">*</span>
+          </label>
+          <input
+            class="input_pretty"
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+          />
+          @if (validField('email')) {
+          <small class="text-danger"> Email format is incorrect </small>
+          }
+        </div>
+        <div class="col-12 mt-3">
+          <label class="mt-3" for="email">
+            Password
+            <span class="asterisk">*</span>
+          </label>
+          <input
+            class="input_pretty"
+            type="password"
+            formControlName="password"
+          />
+          @if (validField('password')) {
+          <small class="text-danger">
+            Password should contains at least 6 characters
+          </small>
+          }
+        </div>
+      </div>
+
+      <div class="div_btn_submit">
+        <button class="button w_100" type="submit">Submit</button>
+        <span
+          class="text_center text-danger fs-5 mt-2 cp"
+          routerLink="/pages/register"
+        >
+          Do not have an account yet ? Create a new one
+        </span>
+      </div>
+    </form>
+    <div class="form_img">
+      <img
+        class="img_login"
+        src="img/login.png"
+        alt="login_img"
+        width="120px"
+      />
+    </div>
+  </div>
+</div>
