@@ -1,65 +1,5 @@
 <div class="files_list container">
   <h2 class="text_center mb-5 mt-5">List of files</h2>
-  <div class="filters mb-4">
-    <div class="box">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <h3 class="mb-0">Filter files</h3>
-        @if (filtersOpen) {
-        <i
-          class="bi bi-arrow-bar-up"
-          (click)="openCloseFilters()"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseFilters"
-          aria-expanded="false"
-          aria-controls="collapseFilters"
-        >
-        </i>
-        } @else () {
-        <i
-          class="bi bi-arrow-bar-down"
-          (click)="openCloseFilters()"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapseFilters"
-          aria-expanded="false"
-          aria-controls="collapseFilters"
-        >
-        </i>
-        }
-      </div>
-      <div class="collapse" id="collapseFilters">
-        <div class="card card-body">
-          <form
-            class="search_form"
-            [formGroup]="searchForm"
-            autocomplete="off"
-            (ngSubmit)="searchFormSubmit()"
-          >
-            <div class="row">
-              <div class="col-12 col-sm-6 col-lg-4">
-                <label for="name">Name</label>
-                <input type="text" formControlName="name" />
-              </div>
-              <div class="col-12 col-sm-6 col-lg-4">
-                <label for="status">Status</label>
-                <input type="text" formControlName="status" />
-              </div>
-            </div>
-
-            <div class="d-flex justify-content-start mt-4">
-              <button class="button" type="submit">Filter</button>
-              <button
-                class="button_secondary ms-2"
-                type="button"
-                (click)="restartFilters()"
-              >
-                Restart filters
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <button type="button" class="button mb-2" routerLink="/pages/new-file">
     + New file
@@ -88,45 +28,38 @@
           <table class="table table-bordered">
             <thead>
               <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Status</th>
-                <th>Size</th>
+                <th>Size (bytes)</th>
                 <th class="text-nowrap">Acciones</th>
               </tr>
             </thead>
             <tbody class="animate__animated animate__fadeIn">
-              @for (file of files; track file.name) {
+              @for (file of files; track $index) {
               <tr>
+                <td>{{ file.id }}</td>
                 <td>{{ file.name }}</td>
-                <td>{{ file.category.name }}</td>
-                <td>{{ file.brand?.name ?? "_" }}</td>
+                <td>{{ file.status }}</td>
+                <td>{{ file.size }}</td>
                 <td class="hstack gap-3">
                   <a
                     class="ancor_action"
-                    [routerLink]="'/admin/detail-file/' + file.id"
-                    title="Detalles"
+                    (click)="downloadFile(file.id)"
+                    title="Download"
                     data-toggle="tooltip"
-                    data-original-title="Detalle"
+                    data-original-title="Download"
                   >
-                    <i class="bi bi-eye-fill action_icon_see"></i>
+                    <i class="bi bi-cloud-arrow-down action_icon_see"></i>
                   </a>
                   <a
                     class="ancor_action"
-                    [routerLink]="'/admin/edit-file/' + file.id"
-                    title="Editar"
+                    [routerLink]="'/pages/update-file/' + file.id"
+                    title="Edit"
                     data-toggle="tooltip"
                     data-original-title="Edit"
                   >
                     <i class="bi bi-pencil-square action_icon_edit ms-2"></i>
-                  </a>
-                  <a
-                    class="ancor_action ms-2"
-                    (click)="removeOneFile(file)"
-                    title="Remover"
-                    data-toggle="tooltip"
-                    data-original-title="Delete"
-                  >
-                    <i class="bi bi-trash3-fill action_icon_trash"></i>
                   </a>
                 </td>
               </tr>
@@ -134,11 +67,7 @@
               <tr>
                 <div class="w-100 d-flex justify-content-start">
                   <div class="alert alert-warning">
-                    {{
-                      isActiveFilters
-                        ? "Without results for that search"
-                        : "Does not exists files in the system by now"
-                    }}
+                    "Does not exists files in the system by now"
                   </div>
                 </div>
               </tr>

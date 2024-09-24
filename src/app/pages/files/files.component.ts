@@ -2,8 +2,10 @@ import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { Limit } from '../../enum/enums';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from "../../shared/pagination/pagination.component";
+import { FileService } from '../../services/file.service';
+import { IFile } from '../../interfaces/file_interface';
 
 @Component({
   selector: 'app-files',
@@ -19,68 +21,52 @@ import { PaginationComponent } from "../../shared/pagination/pagination.componen
 export class FilesComponent {
   
   //  Files
-  public files: any[] = [];
+  public files: IFile[] = [];
 
   // PAGINATION
   public limit: number = Limit.SIX;
   public offset: number = 0;
   public total: number = 0;
-  // TODO: remember to change to true
-  public isLoading: boolean = false;
-
-  // FILTERS
-  public filtersOpen: boolean = false;
-  public filters: any = {};
-  public isActiveFilters: boolean = false;
-  public searchForm!: FormGroup;
+  public isLoading: boolean = true;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fileService: FileService,
   ) { }
 
   ngOnInit(): void {
-    this.searchForm = this.fb.group({
-      'name': ['', [] ],
-      'status': ['', [] ],
-    });
-
     this.fetchAllFiles();
   }
 
-  // // FETCH ALL PRODUCTS PAGINATED
+  // FETCH ALL FILES PAGINATED
   fetchAllFiles(): void {
-    // this.filesService.fetchAllFilesPaginated(this.limit, this.offset, this.filters)
-    //   .subscribe( resp => {
-    //     if (resp && resp.count >= 0) {
-    //       this.total = resp.count;
-    //       this.files = resp.files;
-    //     }
+    this.fileService.fetchAllFilesPaginated(this.limit, this.offset)
+      .subscribe( resp => {
+        if (resp && resp.count >= 0) {
+          this.total = resp.count;
+          this.files = resp.files;
+        }
 
-    //     this.isLoading = false;
-    //   });
+        this.isLoading = false;
+      });
   }
 
-  // FILTERS
-  openCloseFilters(): void {
-    this.filtersOpen = !this.filtersOpen;
-  }
-
-  searchFormSubmit(): void {
-    this.filters = this.searchForm.value;
-    
-    // Set offset to 0 to allow pagination by filters
-    this.offset = 0;
-    this.isActiveFilters = true;
-    this.fetchAllFiles();
-  }
-
-  restartFilters(): void {
-    // Set offset to 0 to allow pagination by filters
-    this.offset = 0;
-    this.isActiveFilters = false;
-    this.filters = {};
-    this.searchForm.reset();
-    this.fetchAllFiles();
+  downloadFile(fileId: number): void {
+    this.fileService.downloadFile(+fileId).subscribe({
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `file_${fileId}.zip`; // Set the filename here
+        a.click();
+        window.URL.revokeObjectURL(url); // Clean up URL after the download
+      },
+      error: (err) => {
+        console.error('Error downloading the file', err);
+      },
+      complete: () => {
+        console.log('File downloaded complete');
+      }
+    });
   }
 
   // DETECT CHANGE PAGE
@@ -91,30 +77,4 @@ export class FilesComponent {
     this.fetchAllFiles();
   }
 
-  removeOneFile(file: any): void {
-
-    // // Mat Dialog solution
-    // let dialogRef = this.dialog.open( ModalConfirmComponent, {
-    //   width: '35rem',
-    //   height: '22rem',
-    //   autoFocus: false,
-    //   data: `¿Estás seguro/a de que deseas eliminar este producto: ${product.name} ?`
-    // } );
-
-    // dialogRef.updatePosition({ top: '100px' });
-    // dialogRef.afterClosed().subscribe( resp => {
-    //   if ( resp ) { // user confirm Cancel or Continue
-    //     this.productService.removeOneProductById(product.id)
-    //       .subscribe( (resp: any) => {
-    //         if ( resp && resp.msg ) {
-    //           Swal.fire('Removido', resp.msg, 'success');
-    //           this.fetchAllProducts();
-    //         } else {
-    //           Swal.fire('Error', resp.message , 'error' );
-    //         };
-    //       });
-    //   };
-    // });
-
-  }
 }

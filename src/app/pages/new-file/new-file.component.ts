@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
+import { FileService } from '../../services/file.service';
 
 @Component({
   selector: 'app-new-file',
@@ -22,6 +25,7 @@ export class NewFileComponent {
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private fileService: FileService,
   ) {
     this.newFileForm = this.fb.group({
       'name' : [ '',[ Validators.required, Validators.minLength(3) ]],
@@ -42,24 +46,29 @@ export class NewFileComponent {
   }
 
   saveFile(): void {
-    if (this.newFileForm.invalid) return;
+    if (this.newFileForm.invalid || !this.selectedFile) return;
 
-    console.log(this.newFileForm.value);
-    // this.authService.login(this.loginForm.value)
-    //   .subscribe(resp => {
-    //     if ( resp && resp.uid ) {
-    //       this.router.navigateByUrl('/auth/profile');
-    //     } else {
-    //       Swal.fire('Error', resp.message , 'error' );
-    //     }
-    //   });
+    const formData = new FormData();
+
+    formData.append('name', this.newFileForm.value['name']);
+    formData.append('files', this.selectedFile[0]);
+
+    this.fileService.saveNewFile(formData)
+      .subscribe( resp => {
+        if ( resp && resp.msg ) {
+          Swal.fire( 'New file', resp.msg, 'success' );
+          this.router.navigateByUrl('/pages/files');
+        } else {
+          Swal.fire( 'Error', resp.message ?? resp.message[0], 'error' );
+        }
+      });
+    
   }
 
   // File
   fileSelected(event: any) {
     this.selectedFile = [];
     const files: File[] = Array.from(event.target.files);
-    console.log(files);
 
     this.selectedFile.push(files[0]);
   }
