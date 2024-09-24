@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 import { IAuth, IAuthToLogin, IAuthToRegister, IAuthToUpdate, IMessage } from '../interfaces/auth_interface';
 import { LS } from '../enum/enums';

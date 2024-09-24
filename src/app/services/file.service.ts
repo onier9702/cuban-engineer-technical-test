@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { catchError, map, Observable, of } from 'rxjs';
 
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 import { ICountAndTotalFile, IFile } from '../interfaces/file_interface';
 import { IMessage } from '../interfaces/auth_interface';
