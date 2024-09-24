@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 import { MenuService } from '../../services/menu.service';
 
@@ -20,20 +20,9 @@ export class NavbarComponent implements OnInit {
   // ROUTES
   public currentRoute: string = '';
   public indexRouteSelected: number = 0;
-  // public routes: string[] = [
-  //   '/pages/home',
-  //   '/pages/join-us',
-  //   '/pages/products',
-  //   '/pages/about-us',
-  //   '/pages/contact-us',
-  //   '/auth/login',
-  //   '/admin',
-  // ];
 
   constructor(
-    private router: Router,
     private menuService: MenuService,
-    // private authService: AuthService,
   ) {}
 
   ngOnInit(): void {

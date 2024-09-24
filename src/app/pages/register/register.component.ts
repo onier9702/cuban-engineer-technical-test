@@ -49,6 +49,11 @@ export class RegisterComponent {
     this.authService.register(this.registerForm.value)
       .subscribe(resp => {
         if ( resp && resp.uid ) {
+          Swal.fire(
+            'Registered',
+            'You have beed registered successfully. Now login with the credentials.',
+            'success'
+          );
           this.router.navigateByUrl('/pages/profile');
         } else {
           Swal.fire('Error', resp.message , 'error' );

@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    baseUrl: 'http://localhost:3011/api',
+    production: true,
+    baseUrl: 'https://ciclozonabiker.com/api',
   };

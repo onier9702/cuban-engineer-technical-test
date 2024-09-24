@@ -18,7 +18,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   // This + 1 = pages
   public rangeOffsets: number = 0;
 
-  // Case total products is multiple of factor
+  // Case total files is multiple of factor
   public rest!: number;
 
   // Square pages in frontend
@@ -27,16 +27,10 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   public activePage: number = 1;
 
-  constructor() {
-    // this.rest = this.comments.length % 5;
-    // this.lastIndexAllowed = Math.floor(this.comments.length / 5);
-    
-  }
+  constructor() {}
 
   ngOnInit(): void {
-
     this.calculatePagination();
-
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,8 +52,8 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.rest = this.total % this.factor;
     this.rangeOffsets = Math.floor(this.total / this.factor);
     this.pages = this.rest === 0 
-                  ? this.rangeOffsets
-                  : this.rangeOffsets + 1;
+        ? this.rangeOffsets
+        : this.rangeOffsets + 1;
 
     // it will create the offsets that will be the output of one page click
     for (let i = 0; i < this.pages; i++) {
