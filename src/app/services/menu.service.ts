@@ -14,7 +14,11 @@ export class MenuService {
     },
     {
       title: 'Login',
-      url: '/pages/login'
+      url: '/pages/profile'
+    },
+    {
+      title: 'Files',
+      url: '/pages/files'
     },
         
   ];

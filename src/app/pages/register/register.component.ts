@@ -48,8 +48,8 @@ export class RegisterComponent {
 
     this.authService.register(this.registerForm.value)
       .subscribe(resp => {
-        if ( resp && resp.msg ) {
-          this.router.navigateByUrl('/auth/profile');
+        if ( resp && resp.uid ) {
+          this.router.navigateByUrl('/pages/profile');
         } else {
           Swal.fire('Error', resp.message , 'error' );
         }

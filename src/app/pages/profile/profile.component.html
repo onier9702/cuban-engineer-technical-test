@@ -1,0 +1,28 @@
+<div class="profile container">
+  <div class="profile_content">
+    <div class="box">
+      <div class="header">
+        <h2 class="mb-4">Perfil</h2>
+      </div>
+
+      <section class="info_user">
+        <div class="single_info">
+          <p class="mb-3">
+            Bienvenido <span class="user_name">{{ currentUser.name }}</span>
+          </p>
+        </div>
+
+        <div class="single_info">
+          <i class="bi bi-envelope me-2"></i>
+          <p class="mb-0 text_light">{{ currentUser.email }}</p>
+        </div>
+      </section>
+
+      <section class="info_actions mt-4 mb-4">
+        <a class="go_out" (click)="logout()" title="logout">Cerrar sesión</a>
+      </section>
+    </div>
+    <!-- End Box -->
+  </div>
+  <!-- End My Profile -->
+</div>

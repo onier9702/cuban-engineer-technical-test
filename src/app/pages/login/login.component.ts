@@ -49,7 +49,7 @@ export class LoginComponent {
     this.authService.login(this.loginForm.value)
       .subscribe(resp => {
         if ( resp && resp.uid ) {
-          this.router.navigateByUrl('/auth/profile');
+          this.router.navigateByUrl('/pages/profile');
         } else {
           Swal.fire('Error', resp.message , 'error' );
         }

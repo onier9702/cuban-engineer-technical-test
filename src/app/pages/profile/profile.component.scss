@@ -1,0 +1,63 @@
+// Globals
+.especial {
+    border-bottom: 1px solid var(--secondary);
+    color: var(--primary_second);
+}
+// END Globals
+
+.profile {
+    padding: 4rem 0 8rem 0;
+}
+
+// PROFILE INFO
+.profile_content {
+    margin: 0 auto;
+    width: 100%;
+
+    @media (min-width: 720px) {
+        width: 60rem;
+    }
+
+    .header {
+        text-align: center;
+        position: relative;
+    } 
+}
+
+.info_user {
+    position: relative;
+
+    .panel_admin {
+        cursor: pointer;
+        position: absolute;
+        top: -0.4rem;
+        right: 0;
+    }
+
+    .single_info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.8rem;
+
+        .user_name {
+            color: var(--primary);
+            font-weight: 700;
+        }
+    }
+}
+
+.info_actions {
+    display: flex;
+    justify-content: space-between;
+
+    .go_out, .add_address_link {
+        border-bottom: 1px solid var(--secondary);
+        color: var(--primary_second);
+        cursor: pointer;
+    }
+}
+// END PROFILE INFO
+
+.profile_content {
+    margin: 0 auto;
+}

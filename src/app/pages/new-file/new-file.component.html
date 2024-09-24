@@ -1,0 +1,50 @@
+<div class="new_file">
+  <div class="new_file_content">
+    <div class="new_file_header">
+      <h2 class="text_center mb-5 mt-5">New File</h2>
+      <i
+        class="bi bi-arrow-left-circle-fill return_icon"
+        (click)="returnToFilesList()"
+      ></i>
+    </div>
+
+    <form
+      class="form"
+      autocomplete="off"
+      [formGroup]="newFileForm"
+      (ngSubmit)="saveFile()"
+    >
+      <div class="row">
+        <div class="col-12">
+          <label for="email">
+            Name
+            <span class="asterisk">*</span>
+          </label>
+          <input
+            class="input"
+            type="name"
+            formControlName="name"
+            autocomplete="name"
+          />
+          @if (validField('name')) {
+          <small class="text-danger">
+            Name should contains at least 3 characters
+          </small>
+          }
+        </div>
+        <!-- Upload File -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <label class="mt-4">File <small class="asterisk">*</small></label>
+          <input
+            type="file"
+            (change)="fileSelected($event)"
+            accept=".pdf,.doc,.docx,.xls,.xlsx,.zip,.txt,.csv"
+          />
+        </div>
+        <!-- End Upload File -->
+      </div>
+
+      <button class="button w_100 mt-5" type="submit">Upload</button>
+    </form>
+  </div>
+</div>

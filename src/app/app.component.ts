@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import { LoginComponent } from './pages/login/login.component';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ import { LoginComponent } from './pages/login/login.component';
     RouterOutlet,
     NavbarComponent,
     FooterComponent,
+    PaginationComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

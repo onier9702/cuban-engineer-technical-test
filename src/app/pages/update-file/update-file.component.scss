@@ -1,0 +1,17 @@
+.update_file {
+    padding: 4rem 1.4rem;
+
+    @media (min-width: 520px) { 
+        padding: 4% 30%;
+    }
+}
+.update_file_header {
+    position: relative;
+}
+.return_icon {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    font-size: 2rem;
+    color: var(--secondary);
+}
