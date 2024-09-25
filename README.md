@@ -13,6 +13,11 @@ Onier Crestelo Ojeda
 
 `https://cuban-engineer.netlify.app`
 
+# Important tip to avoid page not found in netlify after reload some page view
+
+1. Make sure to add or create a file called `_redirects` in the path `dist/cuban-engineer-frontend/browser`
+2. Add this line to this new file `/*    /index.html   200`
+
 # Description
 
 Frontend Technical Test for Cuban Engineer Position created By Onier Crestelo Ojeda.

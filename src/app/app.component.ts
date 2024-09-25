@@ -10,7 +10,6 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    RouterOutlet,
     NavbarComponent,
     FooterComponent,
     PaginationComponent,
